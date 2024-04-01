@@ -11,6 +11,8 @@ function Stopwatch() {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
+    } else {
+      clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [isRunning]);
@@ -27,14 +29,14 @@ function Stopwatch() {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    return `Time : ${minutes.toString().padStart(1, "0")}:${seconds
+    return `${minutes.toString().padStart(1, "0")}:${seconds
       .toString()
       .padStart(2, "0")}`;
   };
 
   return (
     <div>
-      <div className={styles.time}>{formatTime(time)}</div>
+      <div className={styles.time}>Time: {formatTime(time)}</div>
       <button onClick={handleStartStop}>{isRunning ? "Stop" : "Start"}</button>
       <button onClick={reset}>Reset</button>
     </div>
